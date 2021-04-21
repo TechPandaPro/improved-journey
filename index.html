@@ -1,10 +1,107 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>techpandapro.github.io</title>
-    <link rel="icon" href="favicon.png" type="image/png">
-  </head>
-  <body>
-    <p>Hello there! This page isn't finished yet, but if you're finding yourself lost here, you're most likely looking for <a href="/pong">Pong</a>.</p>
-  </body>
+    <head>
+        <title>TechPandaPro's Projects</title>
+        <link rel="icon" href="favicon.png" type="image/png">
+    </head>
+    <body>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RocknRoll+One">
+        <style>
+            body {
+                font-family: "RocknRoll One", sans-serif;
+                background-color: skyblue;
+                text-align: center;
+            }
+            #projects {
+                width: 600px;
+                display: block;
+                margin: 0 auto;
+                height: fit-content;
+            }
+            .project {
+                width: 600px;
+                height: fit-content;
+                padding: 5px 20px 5px 20px;
+                font-size: 20px;
+                background-color: rgb(0, 0, 255, 0.1);
+                border: 2px solid rgb(0, 0, 0, 0.75);
+                box-shadow: 15px 15px 20px rgb(0, 0, 0, 0.5);
+                box-sizing: border-box;
+                margin-bottom: 30px;
+                animation-name: leftToRight;
+                animation-duration: 1s;
+            }
+            .project {
+                cursor: pointer;
+            }
+            .projectName {
+                font-size: 25px;
+            }
+            @keyframes leftToRight {
+                from {
+                    margin-left: -100px;
+                }
+                to {
+                    margin-left: 0px;
+                }
+            }
+            @keyframes rightToLeft {
+                from {
+                    margin-left: 100px;
+                }
+                to {
+                    margin-left: 0px;
+                }
+            }
+        </style>
+        <h1>My Projects</h1>
+        <div id="projects"></div>
+        <script>
+            let projectsElem = document.getElementById("projects");
+
+            let projects = [
+                {
+                    name: "Pong",
+                    id: "pong",
+                    url: "/pong",
+                    description: "Pong is one of the very first computer games ever made. In this remake, you have the ability to play against an AI or against someone that has access to the same keyboard as you.",
+                },
+                {
+                    name: "Math Mania",
+                    id: "mathmania",
+                    url: "/mathmania",
+                    description: "Math Mania is a math game that helps children learn their basic math facts. This game features all four operations (addition, subtraction, multiplication, and division) and its problems are composed of all numbers from 0 to 9."
+                }
+            ]
+
+            projects.reverse();
+
+            projects.forEach(project => {
+                createProjectElem(project);
+            })
+
+            function createProjectElem(projectData) {
+                let div = document.createElement("div");
+                div.setAttribute("class", "project");
+                div.setAttribute("onclick", "window.location.href=\"" + projectData.url + "\"");
+
+                let projectsListed = projectsElem.getElementsByTagName("div").length;
+                div.style["animation-name"] = (
+                    (projectsListed % 2 == 0) ?
+                    "leftToRight" :
+                    "rightToLeft"
+                );
+
+                div.setAttribute("id", projectData.id);
+                let h2 = document.createElement("h2");
+                h2.setAttribute("class", "projectName");
+                h2.innerHTML = projectData.name;
+                let p = document.createElement("p");
+                p.innerHTML = projectData.description;
+                div.appendChild(h2);
+                div.appendChild(p);
+                projectsElem.appendChild(div);
+            }
+        </script>
+    </body>
 </html>
